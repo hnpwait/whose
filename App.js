@@ -7,8 +7,11 @@ export default class App extends React.Component {
   render() {
     return (
       <NativeRouter>
-        <Switch>
-          <Route exact path="/" component={LayoutComponent(Page.ItemPage)} />
+        <Switch> 
+        <Route exact path="/" component={LayoutComponent(Page.ProfilePage)} />        
+          <Route exact path="/login" component={(Page.LoginPage)} />
+          <Route exact path="/signup" component={(Page.SignUpPage)} /> 
+          <Route exact path="/Item" component={LayoutComponent(Page.ItemPage)} />
           <Route exact path="/profile" component={LayoutComponent(Page.ProfilePage)} />
           <Route exact path="/create" component={LayoutComponent(Page.CreateItemPage)} />
         </Switch>

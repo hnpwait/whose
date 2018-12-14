@@ -69,7 +69,7 @@ class ItemPage extends React.Component {
                   }}>
                       <Text style={{  
                          color:this.state.filterType == 0 ? "white" : "black",
-                         fontSize: 18 }}>ประกาศตามหาของหาย</Text>
+                         fontSize: 18 }}>ประกาศพบของหาย</Text>
                       </View>
                       
                       </TouchableNativeFeedback>
@@ -128,8 +128,11 @@ class ItemPage extends React.Component {
                     mode="dropdown"
                      style={{ height: 40, }}
                    >
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    <Picker.Item label="ทั้งหมด" value="all" />
+                    <Picker.Item label="กุญแจ" value="key" />
+                    <Picker.Item label="บัตร" value="card" />
+                    <Picker.Item label="กระเป๋าสตางค์" value="wallet" />
+                    <Picker.Item label="โทรศัพท์มือถือ" value="phone" />
                     </Picker>
                     </View>
                         <TouchableOpacity
