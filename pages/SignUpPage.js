@@ -1,12 +1,30 @@
 import React, { Component } from 'react';
 import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button } from 'react-native';
-export default class SignUpPage extends React.Component {
+import axios from 'axios'
+import {DOMAIN} from '../constant/environment'
+import {login} from '../action/userAction'
+import {connect} from 'react-redux'
+export default connect(null , {login})(class SignUpPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             loading: false,
             email : "" ,firstname:"",lastname:"", password : "",
         }
+    }
+    async onSubmit(){
+      try{
+        const result = await axios.post(DOMAIN +"/user/register", {email : this.state.email , lName:this.state.lastname , fName : this.state.firstname , password :this.state.password})
+        const data = result.data
+        axios.defaults.headers.common.authorization = "Bearer " + data.token
+        this.props.login(data.token)
+          
+        console.warn(data.token)
+      }catch(err){
+        console.log(err)
+        console.warn("Register failed")
+      }
+      
     }
     onChangeText(text, field) {
             this.setState({ [field]: text });
@@ -57,6 +75,7 @@ export default class SignUpPage extends React.Component {
                   title="Sign Up!"
                   color="#FF8000"
                   accessibilityLabel="Sign Up"
+                  onPress={()=>this.onSubmit()}
                 />
                 </View>   
           </ImageBackground>
@@ -64,3 +83,4 @@ export default class SignUpPage extends React.Component {
         );
       }
     }
+)

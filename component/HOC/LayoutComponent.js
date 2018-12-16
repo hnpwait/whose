@@ -3,7 +3,7 @@ import {View , StyleSheet, Text , ScrollView , TextInput , TouchableOpacity , Di
 import {withRouter} from 'react-router-native'
 import Icon from 'react-native-vector-icons/Feather';
 export default function LayoutComponent(WrappedComponent){
-    return withRouter(class LayoutComponent extends React.Component{
+    return withRouter(class MyLayoutComponent extends React.Component{
         constructor(){
             super()
             this.state ={
@@ -14,28 +14,37 @@ export default function LayoutComponent(WrappedComponent){
 
         }
         onPageChange(item){
-           
             this.setState({currentPage : item})
+            if(item == 0){
+                this.props.history.push('/ItemPage')
+            }
+            else if(item == 1){
+                this.props.history.push('/profile')
+            }
+            
            
         }
         render(){
+            {console.warn(this.state.currentPage)}
             const {width , height} = Dimensions.get('window')
             return (
                 <View style={styles.container}>
+                {this.state.currentPage == 0 ? 
                     <View style={styles.header}>
-                        <View  style={styles.ContainerSearchBox} >
-                            <TextInput
-                                style={{padding : 10 , flex : 1}}
-                                placeholder={"ค้นหา...."}
-                                onChangeText={()=>this.onSearch()}
-                            />
-                            
-                                <Icon style={{margin : 15}} name="search" color="black" />   
-                            
-                          
-                        </View>
+                    <View  style={styles.ContainerSearchBox} >
+                        <TextInput
+                            style={{padding : 10 , flex : 1}}
+                            placeholder={"ค้นหา...."}
+                            onChangeText={()=>this.onSearch()}
+                        />
                         
+                            <Icon style={{margin : 15}} name="search" color="black" />   
+                        
+                      
                     </View>
+                    
+                </View> : <View></View>}
+                    
                         
                         <ScrollView 
 
@@ -67,9 +76,9 @@ export default function LayoutComponent(WrappedComponent){
 }
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1
-    },  
+    container:{
+        flex:1
+    },
     header : {
         flex : 0.15,
         backgroundColor  : "#FF7E1C",

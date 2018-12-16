@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
 import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button } from 'react-native';
-export default class LoginPage extends React.Component {
+import axios from 'axios'
+import { DOMAIN } from '../constant/environment';
+import {connect} from 'react-redux'
+import {login} from '../action/userAction'
+export default connect(null , {login })(class LoginPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
         loading: false,
-        email : "" , password : "",
+        email : "1111" , password : "1111",
     }
 }
-
+async onSubmit(){
+  try{
+    console.log(this.state)
+    const result = await axios.post(DOMAIN + "/user/login" , {email : this.state.email , password : this.state.password})
+    const data = result.data
+    const token = data.token
+    axios.defaults.headers.common.authorization = "Bearer" + data.token;
+    this.props.login(token)
+    // this.props.history.push("/signup")
+    console.log(result)
+    
+  }catch(err){
+    console.log(err)
+    console.warn("Login Failed")
+  }
+  
+}
 onChangeText(text, field) {
         this.setState({ [field]: text });
         console.warn(this.email)
       }
   render() {
+   
     return (
       <ImageBackground style= {{height:'100%',width:'100%'}} source={require('../assets/BG.png')}>
         <View>
@@ -41,6 +62,7 @@ onChangeText(text, field) {
                 <Button
                   title="Login"
                   color="#FF8000"
+                  onPress={()=>this.onSubmit()}
                   accessibilityLabel="Login"                
                 />
                 </View>
@@ -48,6 +70,7 @@ onChangeText(text, field) {
                 <Button
                   title="Sign Up?"
                   color="#8B5E30"
+                  onPress={()=>this.props.history.push("/signup")}
                   accessibilityLabel="Sign Up?"
                 />
                 </View>
@@ -56,4 +79,4 @@ onChangeText(text, field) {
       
     );
   }
-}
+})

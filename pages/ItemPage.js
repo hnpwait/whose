@@ -15,13 +15,14 @@ class ItemPage extends React.Component {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes : ImagePicker.MediaTypeOptions.Images
         });
-    
         console.log(result);
     
         if (!result.cancelled) {
           this.setState({ image: result.uri });
         }
       }
+      async OnCreateFind() {
+        this.props.history.push("/createfind")}
     render(){
         const {width , height} = Dimensions.get("window")
         console.log(this.state)
@@ -127,23 +128,26 @@ class ItemPage extends React.Component {
                     <Picker
                     mode="dropdown"
                      style={{ height: 40, }}
+                     selectedValue={this.state.PickerValue}
+                    onValueChange={(itemValue, itemIndex) => this.setState({PickerValue: itemValue})}
                    >
                     <Picker.Item label="ทั้งหมด" value="all" />
                     <Picker.Item label="กุญแจ" value="key" />
                     <Picker.Item label="บัตร" value="card" />
                     <Picker.Item label="กระเป๋าสตางค์" value="wallet" />
                     <Picker.Item label="โทรศัพท์มือถือ" value="phone" />
+                    <Picker.Item label="อื่นๆ" value="other" />
                     </Picker>
                     </View>
                         <TouchableOpacity
-                        onPress={this._pressImage}
-                        >
+                        > 
                         <View style={{
                             backgroundColor : "#FF7E1C",
                             borderRadius : 40,
                             padding :3
-                        }}>
-                            <Icon style={{fontSize : 35}} name="plus" color="black"/>
+                        }}>                       
+                            <Icon style={{fontSize : 35}} name="plus" color="black"
+                            />
                         </View>
                         </TouchableOpacity>
                     </View>
