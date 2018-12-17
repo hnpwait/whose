@@ -13,6 +13,10 @@ export default connect(null , {login })(class LoginPage extends React.Component 
     }
 }
 async onSubmit(){
+  if(this.state.email == "" || this.state.password == ""){
+    this.setState({ Error: 'Please fill email or password' });
+ }
+ else {
   try{
     console.log(this.state)
     const result = await axios.post(DOMAIN + "/user/login" , {email : this.state.email , password : this.state.password})
@@ -27,11 +31,10 @@ async onSubmit(){
     console.log(err)
     console.warn("Login Failed")
   }
-  
+}
 }
 onChangeText(text, field) {
         this.setState({ [field]: text });
-        console.warn(this.email)
       }
   render() {
    
@@ -40,7 +43,7 @@ onChangeText(text, field) {
         <View>
           <Image style= {{height:'72%',width:'72%',marginLeft:'auto',marginRight:'auto'}} source={require('../assets/logo4.png')}></Image>
         </View>
-
+        <Text style={{ color: 'red', marginLeft: 'auto', marginRight: 'auto',fontWeight: 'bold' }}>{this.state.Error}</Text>
         <TextInput
                     underlineColorAndroid='rgba(255,255,255,0)'
                     style={{height: 50,width:'70%',color:'gray',
@@ -49,6 +52,7 @@ onChangeText(text, field) {
                     placeholder="  Email"
                     onChangeText={(text) => this.onChangeText(text, 'email')}
                 />
+
                 <TextInput
                 secureTextEntry
                 underlineColorAndroid='rgba(255,255,255,0)'
@@ -74,7 +78,6 @@ onChangeText(text, field) {
                   accessibilityLabel="Sign Up?"
                 />
                 </View>
-        
       </ImageBackground>
       
     );

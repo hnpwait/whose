@@ -1,19 +1,25 @@
 import React from 'react'
-import {View,StyleSheet,Text,Image} from 'react-native'
-export default class DetailPage extends React.Component{
+import {View,StyleSheet,Text,Image,TouchableOpacity} from 'react-native'
+import {withRouter} from 'react-router-native'
+class DetailPage extends React.Component{
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.header}>
-                <Image style= {{height:25,width:25,marginRight:'auto',marginLeft:15,marginTop:10}} 
-                                source={require('../assets/left-arrow.png')}></Image>               
-                    <Text style={{fontSize:30,color:'white'}}>พบกุญแจที่โรงใหม่</Text>                    
-                        </View>
-                            <View style={styles.body}> 
-                                <Image style= {{height:'80%',width:'60%',marginLeft:'auto',marginRight:'auto',marginTop:10}} 
-                                source={require('../assets/key.jpg')}></Image>
-                            </View>
-                        <View>   
+                <View style={styles.header}>        
+                    <Text style={{fontSize:30,color:'white',marginTop:20}}>พบกุญแจที่โรงใหม่</Text>
+                        <View style = {{marginTop:-40,marginLeft:-290}}>
+                            <TouchableOpacity
+                                onPress={()=>this.props.history.push('/ItemPage')}>
+                                <Image style= {{height:25,width:25}} 
+                                source={require('../assets/left-arrow.png')}></Image>    
+                            </TouchableOpacity>
+                        </View>                       
+                </View>
+                <View style={styles.body}> 
+                    <Image style= {{height:'80%',width:'60%',marginLeft:'auto',marginRight:'auto',marginTop:10}} 
+                        source={require('../assets/key.jpg')}></Image>
+                </View>
+                    <View>   
                 </View>
                 
                 <View style={styles.detailbox}>
@@ -54,4 +60,5 @@ export default class DetailPage extends React.Component{
             borderColor :'#FF8000'
             }
         })
+export default withRouter(DetailPage)        
         

@@ -3,47 +3,74 @@ import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity} fro
 import { ImagePicker } from 'expo';
 import key from '../assets/key.png'
 import card from '../assets/card.png'
-export default class DetailPage extends React.Component{
+import wallet from '../assets/wallet.png'
+import phone from '../assets/phone.png'
+import other from '../assets/other.png'
+import {withRouter} from 'react-router-native'
+import axios from 'axios'
+import { DOMAIN } from '../constant/environment';
+class CreateItemFindPage extends React.Component{
     constructor(){
         super()
         this.state={
-            filterType : 0,
-            image : "",
-            PickerValue:''
-        }
+            title: "",
+            PickerValue:key,
+            detail:'',
+            userID:'',
+            post:'2'
     }
-    onPickPicture(onValueChange) {
-        if(PickerValue == "key"){
-            this.setState({visible : key , modalVisible : !this.state.modalVisible,select :"key"})
+}
+
+async onSubmit(){
+    try{
+      axios.post(DOMAIN + "/post" , 
+      {title : this.state.title , tag : this.state.PickerValue,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
+      this.props.history.push("/ItemPage")
+      
+    }catch(err){
+      console.log(err)
+      console.warn("Post Failed")
+    }
+    
+  }
+    onChangeText(text, field) {
+        this.setState({ [field]: text });
+      }
+
+    onPickPicture(selectedValue) {
+        if(selectedValue == "key"){
+            this.setState({visible : key , modalVisible : !this.state.modalVisible,selectedValue :"key",})
         }
-        else if (onValueChange == "card"){
-            this.setState({visible : card , modalVisible : !this.state.modalVisible,select :"card"})
+        else if (selectedValue == "card"){
+            this.setState({visible : card , modalVisible : !this.state.modalVisible,selectedValue :"card"})
          }
-    //   else if (key == 3){
-    //       this.setState({visible : luxby , modalVisible : !this.state.modalVisible,key :3})
-    //   }
-    //   else if (key == 4){
-    //       this.setState({visible : bas , modalVisible : !this.state.modalVisible,key :4})
-    //   }
-    //   else if (key == 5){
-    //       this.setState({visible : art , modalVisible : !this.state.modalVisible,key :5})
-    //   }
+         else if (selectedValue == "wallet"){
+            this.setState({visible : wallet , modalVisible : !this.state.modalVisible,selectedValue :"wallet"})
+         }
+         else if (selectedValue == "phone"){
+            this.setState({visible : phone , modalVisible : !this.state.modalVisible,selectedValue :"phone"})
+         }
+         else if (selectedValue == "other"){
+            this.setState({visible : other , modalVisible : !this.state.modalVisible,selectedValue :"other"})
+         }
     }
-    // _pressImage = async () => {
-    //     let result = await ImagePicker.launchImageLibraryAsync({
-    //         mediaTypes : ImagePicker.MediaTypeOptions.Images
-            
-    //     });
-    // }
     render(){
+        console.warn(this.state.PickerValue)
         const { selection } = this.state;
         return( 
             <View style={styles.container}>
             <View style={styles.header}>    
-            <View style={{marginTop:20}}>
-            <Image style= {{height:30,width:30,marginLeft:'auto',marginBottom:-35}} 
-                                source={require('../assets/delete.png')}></Image>
-            <Text style={{fontSize:30,color:'white'}}>สร้างโพสต์ตามหาของหาย</Text>               
+            <View style={{marginTop:30}}>
+            <TouchableOpacity>
+            <Text style={{fontSize:30,color:'white',marginBottom:-25}}>สร้างโพสต์ตามหาของหาย</Text>  
+            </TouchableOpacity>
+
+            <TouchableOpacity
+            onPress={()=>this.props.history.push('/ItemPage')}>
+                <Image style= {{height:30,width:30,marginLeft:'auto',marginTop:-10}} 
+                                    source={require('../assets/delete.png')}></Image>
+            </TouchableOpacity>
+                                               
             </View>
             </View>
                         <View style={styles.body}>     
@@ -51,8 +78,9 @@ export default class DetailPage extends React.Component{
                         <TextInput
                     style={{height: 40,width:'80%',color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:75,marginRight:'auto',
-                    marginTop:'auto',marginBottom:10,borderWidth : 1,borderColor :"#FF8000"
+                    marginTop:'auto',marginBottom:10,borderWidth : 1,borderColor :"#FF8000",padding:10
                     }}
+                    onChangeText={(text) => this.onChangeText(text, 'title')}
                 />   
                     <View style={{
                         backgroundColor :"rgb(246,246,246)",
@@ -63,46 +91,44 @@ export default class DetailPage extends React.Component{
                      style={{ height: 40, }}
                      selectedValue={this.state.PickerValue}
                     onValueChange={(itemValue, itemIndex) => this.setState({PickerValue: itemValue})}
+                    
                    >
-                    <Picker.Item label="กุญแจ" value="key" />
-                    <Picker.Item label="บัตร" value="card" />
-                    <Picker.Item label="กระเป๋าสตางค์" value="wallet" />
-                    <Picker.Item label="โทรศัพท์มือถือ" value="phone" />
-                    <Picker.Item label="อื่นๆ" value="other" />
+                    <Picker.Item label="กุญแจ" value= {key} />
+                    <Picker.Item label="บัตร" value={card} />
+                    <Picker.Item label="กระเป๋าสตางค์" value={wallet} />
+                    <Picker.Item label="โทรศัพท์มือถือ" value={phone} />
+                    <Picker.Item label="อื่นๆ" value={other} />
                     </Picker>
                     </View>
                         <Text style={{fontSize:22,color:'black',marginTop:5,marginBottom:10}}>ประเภท :</Text>            
                         </View>
                     <View>   
             </View>
-            <View style={styles.detailbox}> 
-                {() =>{this.onChangePicture("key")}}
-                    <Image style={styles.Image} source={key} />
-                {() =>{this.onChangePicture("card")}}
-                    <Image style={styles.Image} source={card} />
-                {/* <View style={{
-                    backgroundColor : "#FF8000",
-                    borderRadius : 100,
-                    padding :3,
-                    width: 100, height: 100,marginTop:8,
-                    marginLeft:'auto',marginRight:'auto',padding:10 
-                                
-                }}>
-                 <TouchableOpacity
-                        onPress={this._pressImage}>
-                <Image style= {{height:60,width:60,marginRight:'auto',marginLeft:'auto',marginTop:16}} 
-                                source={require('../assets/picture.png')}></Image>
-                                </TouchableOpacity>
-                </View>                     */}
+            <View style={styles.detailbox}>
+            <Image
+                style={{height:110,width:110}}
+                source={this.state.PickerValue}
+                >
+            </Image>
+
             </View>
             <View style={styles.detailbox2}> 
             <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด :</Text>
             <TextInput
-                    style={{height: 150,width:320,color:'gray',
+                    style={{height: 120,width:320,color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
-                    marginTop:'auto',marginBottom:10,borderWidth : 1,borderColor :"#FF8000",padding:10 
+                    marginBottom:'auto',borderWidth : 1,borderColor :"#FF8000",padding:10 
                     }}
-                />                          
+                    onChangeText={(text) => this.onChangeText(text, 'detail')}
+                />         
+                 <View style={{height: 65,width:110,marginLeft:215,marginBottom:-25 }}>
+                <Button
+                  title="โพสต์!"
+                  color="#FF8000"
+                  accessibilityLabel="โพสต์!"
+                  onPress={()=>this.onSubmit()}
+                />
+                </View>                    
             </View>
         </View>
     );
@@ -145,3 +171,4 @@ const styles = StyleSheet.create({
         borderColor :'#FF8000'
     }
     })
+    export default withRouter(CreateItemFindPage)

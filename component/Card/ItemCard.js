@@ -1,5 +1,10 @@
 import React from 'react'
 import {View , StyleSheet , Image , Text , TouchableOpacity} from 'react-native'
+import key from '../../assets/key.png'
+import card from '../../assets/card.png'
+import wallet from '../../assets/wallet.png'
+import phone from '../../assets/phone.png'
+import other from '../../assets/other.png'
 class ItemCard extends React.Component{
     constructor(props){
         super(props)
@@ -9,7 +14,29 @@ class ItemCard extends React.Component{
         }
     }
     render(){   
-
+        
+        let PictureModel = test
+        console.log(PictureModel)
+        if(this.props.tag  == 1){
+            PictureModel = key
+            console.log(PictureModel)
+        }
+        else if(this.props.tag  == 2){
+            PictureModel = card
+            console.log(PictureModel)
+        }
+        else if(this.props.tag  == 3){
+            PictureModel = wallet
+            console.log(PictureModel)
+        }
+        else if(this.props.tag  == 4){
+            PictureModel = phone
+            console.log(PictureModel)
+        }
+        else if(this.props.tag  == 5){
+            PictureModel = other
+            console.log(PictureModel)
+        }
         return (
             
             <TouchableOpacity style={styles.container}>
@@ -21,7 +48,7 @@ class ItemCard extends React.Component{
                         />
                     </View>
                     <View style={{justifyContent :"center" , alignItems :"center" , marginLeft : 5,}}>
-                        <Text>Header</Text>
+                        <Text>{this.props.fname}</Text>
                     </View> 
                 </View>
                 <View 
@@ -29,10 +56,10 @@ class ItemCard extends React.Component{
                     style={{flex : 0.6}}>
                     <Image 
                     style={{width : this.state.width , height : 300}}
-                    source={{uri : "https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg"}} />
+                    source={key} />
                 </View> 
                 <View style={{flex : 0.2 , margin : 5}}>
-                    <Text>Lorem Ipsum is simply dummy text of the printing and typesetting industry</Text>
+                    <Text>{this.props.title}</Text>
                 </View>
             </TouchableOpacity>
         )

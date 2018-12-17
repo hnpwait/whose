@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button } from 'react-native';
+import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,TouchableOpacity} from 'react-native';
 import axios from 'axios'
 import {DOMAIN} from '../constant/environment'
 import {login} from '../action/userAction'
 import {connect} from 'react-redux'
-export default connect(null , {login})(class SignUpPage extends React.Component {
+import {withRouter} from 'react-router-native'
+class SignUpPage extends React.Component  {
     constructor(props) {
         super(props)
         this.state = {
             loading: false,
             email : "" ,firstname:"",lastname:"", password : "",
-        }
+        }        
     }
+ 
     async onSubmit(){
       try{
         const result = await axios.post(DOMAIN +"/user/register", {email : this.state.email , lName:this.state.lastname , fName : this.state.firstname , password :this.state.password})
@@ -31,10 +33,17 @@ export default connect(null , {login})(class SignUpPage extends React.Component 
     }
       render() {
         return (
+          
           <ImageBackground style= {{height:'100%',width:'100%'}} source={require('../assets/BG.png')}>
-            <View>
-              <Image style= {{height:'60%',width:'60%',marginLeft:'auto',marginRight:'auto'}} source={require('../assets/logo4.png')}></Image>     
-            </View>
+          <View>
+                <TouchableOpacity
+                onPress={()=>this.props.history.push('/ItemPage')}>
+                  <Image style= {{height:30,width:30,marginLeft:30,marginTop:50}} source={require('../assets/left-arrow.png')}></Image>
+                </TouchableOpacity>
+                </View>
+            <View >         
+              <Image style= {{height:'60%',width:'60%',marginLeft:'auto',marginRight:'auto',marginTop:-50}} source={require('../assets/logo4.png')}></Image>     
+            </View>     
             <TextInput
                     underlineColorAndroid='rgba(255,255,255,0)'
                     style={{height: 50,width:'70%',color:'gray',
@@ -76,11 +85,13 @@ export default connect(null , {login})(class SignUpPage extends React.Component 
                   color="#FF8000"
                   accessibilityLabel="Sign Up"
                   onPress={()=>this.onSubmit()}
+
                 />
-                </View>   
+                </View>
           </ImageBackground>
           
         );
       }
     }
-)
+
+export default withRouter(connect(null , {login})(SignUpPage))

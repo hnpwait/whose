@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button,AppRegistry,View,StyleSheet,Icon,Image,ImageBackground,TouchableOpacity} from 'react-native'
 import axios from 'axios'
+import {withRouter} from 'react-router-native'
 class ProfilePage extends React.Component{
     componentDidMount(){
 

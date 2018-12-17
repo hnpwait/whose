@@ -3,14 +3,32 @@ import {ScrollView,View , Text , TouchableNativeFeedback , TouchableOpacity , Pi
 import ItemCard from '../component/Card/ItemCard'
 import Icon from 'react-native-vector-icons/Feather';
 import { ImagePicker } from 'expo';
+import {withRouter} from 'react-router-native'
+import Axios from 'axios';
+import { DOMAIN } from '../constant/environment';
 class ItemPage extends React.Component { 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
+            eventList : [],
             filterType : 0,
             image : ""
         }
     }
+    componentDidMount(){
+        console.log(DOMAIN + '/post/2')
+        Axios.get(DOMAIN + '/post/2')
+        .then(result=>{
+            const data = result.data
+            const eventList = data.event
+            this.setState({eventList: eventList})
+            console.log(result)
+        })
+        .catch(err=>{
+            console.log(err.response)
+        })
+    }
+
     _pressImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes : ImagePicker.MediaTypeOptions.Images
@@ -26,6 +44,21 @@ class ItemPage extends React.Component {
     render(){
         const {width , height} = Dimensions.get("window")
         console.log(this.state)
+        const {eventList} = this.state
+        let Events = eventList && eventList.length != 0 ? eventList.map(data=>
+            <ItemCard 
+                title={data.title}
+                fname={data.author.fName}
+                datePost={data.datePost}
+                tag={data.tag}
+
+            />
+        )
+        :
+        <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  
+            <Text style={{fontSize : 15}}>You doesn't have any event</Text>
+        </View>
+        
         return (     
             <View style={{
               
@@ -140,6 +173,7 @@ class ItemPage extends React.Component {
                     </Picker>
                     </View>
                         <TouchableOpacity
+                        onPress={()=>this.props.history.push(this.state.filterType == 0 ? '/createfound':'/createfind' )}
                         > 
                         <View style={{
                             backgroundColor : "#FF7E1C",
@@ -155,20 +189,11 @@ class ItemPage extends React.Component {
                 </View>
                     
                 </View>
-           
-                    <ItemCard 
-
-                    />
-                     <ItemCard 
-
-                    />
-                    <ItemCard 
-
-                    />
+                        {Events}
             </View>
 
         )
     }
 }
 
-export default ItemPage
+export default withRouter(ItemPage)
