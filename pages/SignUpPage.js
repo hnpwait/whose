@@ -38,11 +38,11 @@ class SignUpPage extends React.Component  {
           <View>
                 <TouchableOpacity
                 onPress={()=>this.props.history.push('/ItemPage')}>
-                  <Image style= {{height:30,width:30,marginLeft:30,marginTop:50}} source={require('../assets/left-arrow.png')}></Image>
+                  <Image style= {{height:30,width:30,marginLeft:25,marginTop:45}} source={require('../assets/left-arrow.png')}></Image>
                 </TouchableOpacity>
                 </View>
             <View >         
-              <Image style= {{height:'60%',width:'60%',marginLeft:'auto',marginRight:'auto',marginTop:-50}} source={require('../assets/logo4.png')}></Image>     
+              <Image style= {{height:'60%',width:'60%',marginLeft:'auto',marginRight:'auto',marginTop:-60}} source={require('../assets/logo4.png')}></Image>     
             </View>     
             <TextInput
                     underlineColorAndroid='rgba(255,255,255,0)'

@@ -13,11 +13,12 @@ export default connect(null , {login })(class LoginPage extends React.Component 
     }
 }
 async onSubmit(){
-  if(this.state.email == "" || this.state.password == ""){
-    this.setState({ Error: 'Please fill email or password' });
- }
- else {
+  const {email,password} = this.state; {
   try{
+    if(email == "" || password == ""){
+      this.setState({ Error: 'Please fill email or password' });
+   }
+   else{
     console.log(this.state)
     const result = await axios.post(DOMAIN + "/user/login" , {email : this.state.email , password : this.state.password})
     const data = result.data
@@ -26,7 +27,7 @@ async onSubmit(){
     this.props.login(token)
     // this.props.history.push("/signup")
     console.log(result)
-    
+   }
   }catch(err){
     console.log(err)
     console.warn("Login Failed")

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity} from 'react-native'
+import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert} from 'react-native'
 import { ImagePicker } from 'expo';
 import key from '../assets/key.png'
 import card from '../assets/card.png'
@@ -54,6 +54,7 @@ async onSubmit(){
             this.setState({visible : other , modalVisible : !this.state.modalVisible,selectedValue :"other"})
          }
     }
+    
     render(){
         console.warn(this.state.PickerValue)
         const { selection } = this.state;
@@ -61,9 +62,8 @@ async onSubmit(){
             <View style={styles.container}>
             <View style={styles.header}>    
             <View style={{marginTop:30}}>
-            <TouchableOpacity>
+            
             <Text style={{fontSize:30,color:'white',marginBottom:-25}}>สร้างโพสต์ตามหาของหาย</Text>  
-            </TouchableOpacity>
 
             <TouchableOpacity
             onPress={()=>this.props.history.push('/ItemPage')}>

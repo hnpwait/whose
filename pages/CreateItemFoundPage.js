@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity} from 'react-native'
+import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert} from 'react-native'
 import { ImagePicker } from 'expo';
 import key from '../assets/key.png'
 import card from '../assets/card.png'
@@ -8,6 +8,7 @@ import phone from '../assets/phone.png'
 import other from '../assets/other.png'
 import {withRouter} from 'react-router-native'
 class CreateItemFoundPage extends React.Component{
+    
     constructor(){
         super()
         this.state={
@@ -51,16 +52,30 @@ class CreateItemFoundPage extends React.Component{
             this.setState({visible : other , modalVisible : !this.state.modalVisible,selectedValue :"other"})
          }
     }
+    onPressButton(){
+        if (title==""||detail==''){
+            Alert.alert('โปรดใส่ข้อมูลให้ครบ')
+        }
+        else if (title==""||detail==''){
+            try{
+                axios.post(DOMAIN + "/post" , 
+                {title : this.state.title , tag : this.state.PickerValue,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
+                this.props.history.push("/ItemPage")
+                
+              }catch(err){
+                console.log(err)
+                console.warn("Post Failed")
+              }
+        }
+
+    }
     render(){
-        const { selection } = this.state;
+            
         return( 
             <View style={styles.container}>
             <View style={styles.header}>    
-            <View style={{marginTop:30}}>
-            <TouchableOpacity>
-            <Text style={{fontSize:30,color:'white',marginBottom:-25}}>สร้างโพสต์พบของหาย</Text>  
-            </TouchableOpacity>
-
+            <View style={{marginTop:30}}>           
+            <Text style={{fontSize:30,color:'white',marginBottom:-25}}>สร้างโพสต์พบของหาย</Text>          
             <TouchableOpacity
             onPress={()=>this.props.history.push('/ItemPage')}>
                 <Image 
@@ -111,7 +126,7 @@ class CreateItemFoundPage extends React.Component{
                 {() =>{this.onChangePicture(selectedValue)}}
             </View>
             <View style={styles.detailbox2}> 
-            <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด :</Text>
+            <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด* :</Text>
             <TextInput
                     style={{height: 120,width:320,color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
@@ -119,18 +134,19 @@ class CreateItemFoundPage extends React.Component{
                     }}
                     onChangeText={(text) => this.onChangeText(text, 'detail')}
                 />         
-                 <View style={{height: 65,width:110,marginLeft:215,marginBottom:-25 }}>
+                 <View style={{height: 65,width:110,marginLeft:215,marginBottom:-25 }}>        
                 <Button
+                 onPress={this.onPressButton}
                   title="โพสต์!"
                   color="#FF8000"
                   accessibilityLabel="โพสต์!"
-                />
+                />    
                 </View>                    
             </View>
         </View>
-    );
+    )}
 }
-}
+
 const styles = StyleSheet.create({
     container:{
         backgroundColor:'#FFF1D9',

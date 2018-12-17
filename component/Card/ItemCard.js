@@ -15,28 +15,28 @@ class ItemCard extends React.Component{
     }
     render(){   
         
-        let PictureModel = test
-        console.log(PictureModel)
-        if(this.props.tag  == 1){
-            PictureModel = key
-            console.log(PictureModel)
-        }
-        else if(this.props.tag  == 2){
-            PictureModel = card
-            console.log(PictureModel)
-        }
-        else if(this.props.tag  == 3){
-            PictureModel = wallet
-            console.log(PictureModel)
-        }
-        else if(this.props.tag  == 4){
-            PictureModel = phone
-            console.log(PictureModel)
-        }
-        else if(this.props.tag  == 5){
-            PictureModel = other
-            console.log(PictureModel)
-        }
+        // let PictureModel = test
+        // console.log(PictureModel)
+        // if(this.props.tag  == 1){
+        //     PictureModel = key
+        //     console.log(PictureModel)
+        // }
+        // else if(this.props.tag  == 2){
+        //     PictureModel = card
+        //     console.log(PictureModel)
+        // }
+        // else if(this.props.tag  == 3){
+        //     PictureModel = wallet
+        //     console.log(PictureModel)
+        // }
+        // else if(this.props.tag  == 4){
+        //     PictureModel = phone
+        //     console.log(PictureModel)
+        // }
+        // else if(this.props.tag  == 5){
+        //     PictureModel = other
+        //     console.log(PictureModel)
+        // }
         return (
             
             <TouchableOpacity style={styles.container}>
