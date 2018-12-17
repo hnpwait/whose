@@ -12,23 +12,50 @@ class ItemPage extends React.Component {
         this.state={
             eventList : [],
             filterType : 0,
-            image : ""
+            image : "",
+            PickerValue : ''
         }
     }
     componentDidMount(){
-        console.log(DOMAIN + '/post/2')
-        Axios.get(DOMAIN + '/post/2')
-        .then(result=>{
-            const data = result.data
-            const eventList = data.event
-            this.setState({eventList: eventList})
-            console.log(result)
-        })
-        .catch(err=>{
-            console.log(err.response)
-        })
-    }
+        if(this.state.filterType == 0 ){
+            console.log('2')
+            Axios.get(DOMAIN + '/post/found'+this.state.PickerValue)
+                .then(result=>{
+                    const data = result.data
+                    const eventList = data.event
+                    this.setState({eventList: eventList})
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err.response)
+                })
 
+        }
+        else if(this.state.filterType == 1 ){
+            console.log('1')
+            Axios.get(DOMAIN + '/post/find'+this.state.PickerValue)
+                .then(result=>{
+                    const data = result.data
+                    const eventList = data.event
+                    this.setState({eventList: eventList})
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err.response)
+                })
+
+        }
+
+    }
+test1 = () =>{
+    this.setState({filterType : 1})
+    this.componentDidMount();
+}
+
+test2 = () =>{
+    this.setState({filterType : 0})
+    this.componentDidMount();
+}
     _pressImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes : ImagePicker.MediaTypeOptions.Images
@@ -43,10 +70,10 @@ class ItemPage extends React.Component {
         this.props.history.push("/createfind")}
     render(){
         const {width , height} = Dimensions.get("window")
-        console.log(this.state)
         const {eventList} = this.state
         let Events = eventList && eventList.length != 0 ? eventList.map(data=>
-            <ItemCard 
+            <ItemCard
+                postId={data.postId}
                 title={data.title}
                 fname={data.author.fName}
                 datePost={data.datePost}
@@ -58,7 +85,7 @@ class ItemPage extends React.Component {
         <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  
             <Text style={{fontSize : 15}}>You doesn't have any event</Text>
         </View>
-        
+        console.warn(this.state.PickerValue)
         return (     
             <View style={{
               
@@ -73,7 +100,7 @@ class ItemPage extends React.Component {
                     <View style={{justifyContent : "space-around" , flexDirection : "row" , alignItems :"center"}}>
                       <TouchableNativeFeedback
                       
-                       onPress={()=>this.setState({filterType : 0})}
+                       onPress={()=>this.test2()}
                       >
                       <View style={this.state.filterType == 0? {
                         
@@ -108,7 +135,8 @@ class ItemPage extends React.Component {
                       
                       </TouchableNativeFeedback>
                       <TouchableNativeFeedback
-                         onPress={()=>this.setState({filterType : 1})}
+                      
+                         onPress={()=>this.test1()}
                       >
                          <View style={this.state.filterType == 1? {
                         
@@ -163,8 +191,9 @@ class ItemPage extends React.Component {
                      style={{ height: 40, }}
                      selectedValue={this.state.PickerValue}
                     onValueChange={(itemValue, itemIndex) => this.setState({PickerValue: itemValue})}
+                    onPress={()=>this.componentDidMount()}
                    >
-                    <Picker.Item label="ทั้งหมด" value="all" />
+                    <Picker.Item label="ทั้งหมด" value="" />
                     <Picker.Item label="กุญแจ" value="key" />
                     <Picker.Item label="บัตร" value="card" />
                     <Picker.Item label="กระเป๋าสตางค์" value="wallet" />

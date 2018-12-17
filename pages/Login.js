@@ -22,7 +22,7 @@ async onSubmit(){
     const result = await axios.post(DOMAIN + "/user/login" , {email : this.state.email , password : this.state.password})
     const data = result.data
     const token = data.token
-    axios.defaults.headers.common.authorization = "Bearer" + data.token;
+    axios.defaults.headers.common.authorization = "Bearer " + data.token;
     this.props.login(token)
     // this.props.history.push("/signup")
     console.log(result)

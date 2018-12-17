@@ -1,8 +1,29 @@
 import React from 'react'
 import {View,StyleSheet,Text,Image,TouchableOpacity} from 'react-native'
 import {withRouter} from 'react-router-native'
+import { DOMAIN } from '../constant/environment';
 class DetailPage extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            event : {}
+        }
+    }
+    componentDidMount(){
+        console.log(DOMAIN + '/post/detail')
+        Axios.get(DOMAIN + '/post/detail/'+this.props.postId)
+        .then(result=>{
+            const data = result.data
+            const eventList = data.event
+            this.setState({eventList: eventList})
+            console.log(result)
+        })
+        .catch(err=>{
+            console.log(err.response)
+        })
+    }
     render(){
+        console.log(this.props.postId)
         return(
             <View style={styles.container}>
                 <View style={styles.header}>        
