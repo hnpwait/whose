@@ -5,6 +5,7 @@ import card from '../../assets/card.png'
 import wallet from '../../assets/wallet.png'
 import phone from '../../assets/phone.png'
 import other from '../../assets/other.png'
+import {withRouter} from 'react-router-native'
 class ItemCard extends React.Component{
     constructor(props){
         super(props)
@@ -13,33 +14,35 @@ class ItemCard extends React.Component{
             height : 0,
         }
     }
+    test(){
+        console.log(this.props.postId)
+    }
     render(){   
-        
-        // let PictureModel = test
-        // console.log(PictureModel)
-        // if(this.props.tag  == 1){
-        //     PictureModel = key
-        //     console.log(PictureModel)
-        // }
-        // else if(this.props.tag  == 2){
-        //     PictureModel = card
-        //     console.log(PictureModel)
-        // }
-        // else if(this.props.tag  == 3){
-        //     PictureModel = wallet
-        //     console.log(PictureModel)
-        // }
-        // else if(this.props.tag  == 4){
-        //     PictureModel = phone
-        //     console.log(PictureModel)
-        // }
-        // else if(this.props.tag  == 5){
-        //     PictureModel = other
-        //     console.log(PictureModel)
-        // }
+        let PictureModel = 'test'
+        if(this.props.tag  == 1){
+            PictureModel = key
+            
+        }
+        else if(this.props.tag  == 2){
+            PictureModel = card
+            
+        }
+        else if(this.props.tag  == 3){
+            PictureModel = wallet
+            
+        }
+        else if(this.props.tag  == 4){
+            PictureModel = phone
+            
+        }
+        else if(this.props.tag  == 5){
+            PictureModel = other
+            
+        }
         return (
             
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container}
+            onPress={()=>this.test()}>
                 <View style={{flex : 0.2 , flexDirection :"row" , margin : 5 }}>
                     <View>
                         <Image
@@ -56,7 +59,7 @@ class ItemCard extends React.Component{
                     style={{flex : 0.6}}>
                     <Image 
                     style={{width : this.state.width , height : 300}}
-                    source={key} />
+                    source={PictureModel} />
                 </View> 
                 <View style={{flex : 0.2 , margin : 5}}>
                     <Text>{this.props.title}</Text>
@@ -76,4 +79,4 @@ const styles= StyleSheet.create({
         
     }
 })
-export default ItemCard
+export default withRouter(ItemCard)
