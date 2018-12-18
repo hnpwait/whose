@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert} from 'react-native'
+import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert,KeyboardAvoidingView} from 'react-native'
 import { ImagePicker } from 'expo';
 import key from '../assets/key.png'
 import card from '../assets/card.png'
@@ -118,6 +118,7 @@ class CreateItemFoundPage extends React.Component{
             </Image>
                 {() =>{this.onChangePicture(selectedValue)}}
             </View>
+            <KeyboardAvoidingView  behavior="padding" >
             <View style={styles.detailbox2}> 
             <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด* :</Text>
             <TextInput
@@ -136,6 +137,7 @@ class CreateItemFoundPage extends React.Component{
                 />    
                 </View>                    
             </View>
+            </KeyboardAvoidingView>
         </View>
     )}
 }

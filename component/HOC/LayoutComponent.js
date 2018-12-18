@@ -1,5 +1,5 @@
 import React from 'react'
-import {View , StyleSheet, Text , ScrollView , TextInput , TouchableOpacity , Dimensions} from 'react-native'
+import {View , StyleSheet,  ScrollView , Image , TouchableOpacity , Dimensions} from 'react-native'
 import {withRouter} from 'react-router-native'
 import Icon from 'react-native-vector-icons/Feather';
 export default function LayoutComponent(WrappedComponent){
@@ -40,18 +40,7 @@ export default function LayoutComponent(WrappedComponent){
                 <View style={styles.container}>
                 {this.props.history.location.pathname != "/profile" ? 
                     <View style={styles.header}>
-                    <View  style={styles.ContainerSearchBox} >
-                        <TextInput
-                            style={{padding : 10 , flex : 1}}
-                            placeholder={"ค้นหา...."}
-                            onChangeText={()=>this.onSearch()}
-                            // value= {this.state.text}
-                          />
-                        
-                            <Icon style={{margin : 15}} name="search" color="black" />   
-                        
-                      
-                    </View>
+                   <Image style= {{height:50,width:50,marginLeft:'auto',marginRight:'auto'}} source={require('../../assets/logoW.png')}></Image>
                     
                 </View> : <View></View>}
                     
@@ -59,7 +48,7 @@ export default function LayoutComponent(WrappedComponent){
                         <ScrollView 
 
                             style={{flex :0.7 , height : height /2,
-                                backgroundColor : "rgb(231,231,231)",
+                                backgroundColor : "rgb(240,240,240)",
                
                             }}
                         >

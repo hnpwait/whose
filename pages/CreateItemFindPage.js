@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert} from 'react-native'
+import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert,KeyboardAvoidingView} from 'react-native'
 import { ImagePicker } from 'expo';
 import key from '../assets/key.png'
 import card from '../assets/card.png'
@@ -74,14 +74,15 @@ async onSubmit(){
     render(){
         //console.warn(this.state.PickerValue)
         const { selection } = this.state;
-        return( 
+        return(
+
             <View style={styles.container}>
             <View style={styles.header}>    
             <View style={{marginTop:30}}>
             
             <Text style={{fontSize:30,color:'white',marginBottom:-25}}>สร้างโพสต์ตามหาของหาย</Text>  
 
-            <TouchableOpacity
+            <TouchableOpacity 
             onPress={()=>this.props.history.push('/ItemPage')}>
                 <Image style= {{height:30,width:30,marginLeft:'auto',marginTop:-10}} 
                                     source={require('../assets/delete.png')}></Image>
@@ -125,18 +126,19 @@ async onSubmit(){
                 style={{height:110,width:110}}
                 source={this.state.PickerValue}
                 >
-            </Image>
-
+            </Image>        
             </View>
             <View style={styles.detailbox2}> 
             <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด* :</Text>
+            <KeyboardAvoidingView  behavior="padding" >
             <TextInput
                     style={{height: 120,width:320,color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
                     marginBottom:'auto',borderWidth : 1,borderColor :"#FF8000",padding:10 
                     }}
                     onChangeText={(text) => this.onChangeText(text, 'detail')}
-                />         
+                />   
+                </KeyboardAvoidingView>      
                  <View style={{height: 65,width:110,marginLeft:215,marginBottom:-25 }}>
                 <Button
                   title="โพสต์!"
@@ -147,6 +149,7 @@ async onSubmit(){
                 </View>                    
             </View>
         </View>
+        
     );
 }
 }

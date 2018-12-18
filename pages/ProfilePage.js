@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button,AppRegistry,View,StyleSheet,Icon,Image,ImageBackground,TouchableOpacity,Text} from 'react-native'
+import {Button,AppRegistry,View,StyleSheet,Icon,Image,TouchableOpacity,Text} from 'react-native'
 import user from '../assets/user.png'
 import axios from 'axios'
 import { DOMAIN } from '../constant/environment';
@@ -15,6 +15,7 @@ class ProfilePage extends React.Component{
         this.state ={
             currentPage : 0,
             UserData : {},
+            loading : true
         }
     }
     onPageChange(item){
@@ -29,38 +30,57 @@ class ProfilePage extends React.Component{
             this.setState({UserData: data})
             this.props.history.push("/")
             console.log(result.UserData)
+            this.setState({UserData  , loading : false})
         })
         .catch(err=>{
             console.log(err.response)
+            this.setState({loading : false})
         })
     }
     render()
     {
-      return(           
-        <View style={styles.container}>                   
-        <Image style= {{ width: 120,height:120,marginLeft:'auto',marginRight:'auto'}} source ={ user }/>
-        <View style={{height: 60,width:300,marginLeft:'auto',marginRight:'auto',marginTop:150}}>
-        <Text>{this.state.UserData.fName} {this.state.UserData.lName} </Text>
-                <Button
+        if(Object.keys(this.state.UserData).length == 0){
+            return <View style={{
+            justifyContent: 'center',
+            alignItems :"center"}}>
+                <Text style={{fontSize:30,color:"#FF8000"}}>Loading..</Text>
+            </View>
+        }
+        else 
+      return(
+        <View style={styles.box}>      
+        <View style={styles.container}>   
+        <View style={{height: 400,width:340,marginLeft:'auto',marginRight:'auto',marginTop:70,
+        backgroundColor:"white",borderWidth:1,borderColor:'gray'}}>              
+        <Image style= {{ width: 120,height:120,marginLeft:'auto',marginRight:'auto',
+                            marginTop:30}} source ={ user }/>
+        <Text style ={{fontSize:30, marginLeft:'auto',marginRight:'auto',marginTop:30,color:'black'}}>{this.state.UserData.fName} {this.state.UserData.lName} </Text>
+                <View style = {{marginTop:70,height: 100,width:200,marginLeft:'auto',marginRight:'auto'}}>
+                <Button 
                   title="Sign Out"
                   color="red"
                   accessibilityLabel="Sign Out"
                   onPress={()=>this.props.logout()}
                 />
-                </View>                              
-        </View>
+                </View>
+            </View>
+            </View> 
+            </View>                               
         );
     }
   }
   const styles = StyleSheet.create(
     {
+        box:{
+            flex:1,
+            backgroundColor: "rgb(251,251,251)"
+        },
          container:
          {
-             flex: 1,
-             backgroundColor: 'pink'
+             flex: 0.5,
+             backgroundColor: "rgb(251,251,251)"
          }
         }
          );
-    AppRegistry.registerComponent('App', () => App);
             
 export default connect(null , {logout})(ProfilePage)

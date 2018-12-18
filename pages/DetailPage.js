@@ -55,11 +55,11 @@ class DetailPage extends React.Component{
             
         }
         if(Object.keys(this.state.event).length == 0){
-            return <View style={{    backgroundColor:'#FFF1D9',
+            return <View style={{    backgroundColor:"rgb(231,231,231)",
             flex:1,
             justifyContent: 'center',
             alignItems :"center"}}>
-                <Text style={{justifyContent : "center"}}>Loading..</Text>
+                <Text style={{justifyContent : "center",fontSize:30,color:"#FF8000"}}>Loading..</Text>
             </View>
         }
         else 

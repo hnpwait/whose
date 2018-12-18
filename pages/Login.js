@@ -9,7 +9,7 @@ export default connect(null , {login })(class LoginPage extends React.Component 
     super(props)
     this.state = {
         loading: false,
-        email : "God" , password : "god",
+        email : "" , password : "",
     }
 }
 async onSubmit(){

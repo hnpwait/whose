@@ -10,6 +10,7 @@ import thunk from 'redux-thunk'
 import {Provider} from 'react-redux'
 import promise from 'redux-promise-middleware'
 import reducer from './reducer'
+console.disableYellowBox = true;
 const store = createStore(reducer , applyMiddleware(promise(), thunk ))
 export default class App extends React.Component {
   render() {

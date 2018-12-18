@@ -213,7 +213,7 @@ class ItemPage extends React.Component {
                     }}>
                     <Picker
                     mode="dropdown"
-                     style={{ height: 40, }}
+                     style={{ height: 40 }}
                      selectedValue={this.state.PickerValue}
                     onValueChange={(itemValue, itemIndex) => this.onPress(this.state.filterType,itemValue)}
                    >

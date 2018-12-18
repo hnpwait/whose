@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,TouchableOpacity,Alert} from 'react-native';
+import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,TouchableOpacity,Alert,KeyboardAvoidingView} from 'react-native';
 import axios from 'axios'
 import {DOMAIN} from '../constant/environment'
 import {login} from '../action/userAction'
@@ -44,7 +44,7 @@ class SignUpPage extends React.Component  {
           <View>
                 <TouchableOpacity
                 onPress={()=>this.props.history.push('/ItemPage')}>
-                  <Image style= {{height:30,width:30,marginLeft:25,marginTop:45}} source={require('../assets/left-arrow.png')}></Image>
+                  <Image style= {{height:30,width:30,marginLeft:25,marginTop:45,}} source={require('../assets/left-arrow.png')}></Image>
                 </TouchableOpacity>
                 </View>
             <View >         
@@ -54,7 +54,7 @@ class SignUpPage extends React.Component  {
                     underlineColorAndroid='rgba(255,255,255,0)'
                     style={{height: 50,width:'70%',color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
-                    position: 'absolute', top: 180, left: 50,padding : 10 }}
+                   marginTop:-210,padding:10}}
                     placeholder="  Email"
                     onChangeText={(text) => this.onChangeText(text, 'email')}
                 />
@@ -62,7 +62,7 @@ class SignUpPage extends React.Component  {
                 underlineColorAndroid='rgba(255,255,255,0)'
                     style={{height: 50,width:'70%',color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
-                    position: 'absolute', top: 245, left: 50,padding : 10}}
+                    marginTop:10,padding:10}}
                     placeholder="  Firstname"
                     onChangeText={(text) => this.onChangeText(text, 'firstname')}
                 />
@@ -70,7 +70,7 @@ class SignUpPage extends React.Component  {
                     underlineColorAndroid='rgba(255,255,255,0)'
                     style={{height: 50,width:'70%',color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
-                    position: 'absolute', top: 310, left: 50,padding : 10 }}
+                    marginTop:10,padding:10}}
                     placeholder="  Lastname"
                     onChangeText={(text) => this.onChangeText(text, 'lastname')}
                 />
@@ -79,12 +79,12 @@ class SignUpPage extends React.Component  {
                 underlineColorAndroid='rgba(255,255,255,0)'
                     style={{height: 50,width:'70%',color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
-                    position: 'absolute', top: 375, left: 50,padding : 10}}
+                    marginTop:10,padding:10}}
                     placeholder="  Password"
                     onChangeText={(text) => this.onChangeText(text, 'password')}
                     
                 />
-                <View style={{height: 60,width:100,marginLeft:200,position: 'absolute',top: 440 }}>
+                <View style={{height: 60,width:100,marginLeft:200,marginTop:20}}>
                 <Button
                   title="Sign Up!"
                   color="#FF8000"
@@ -93,7 +93,8 @@ class SignUpPage extends React.Component  {
 
                 />
                 </View>
-          </ImageBackground>
+                </ImageBackground>
+                
           
         );
       }
