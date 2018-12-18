@@ -15,8 +15,8 @@ class ItemCard extends React.Component{
             height : 0,
         }
     }
-    test(){
-        console.log(this.props.postId)
+    onEnter(){
+        this.props.onEnter()
     }
     render(){   
         let PictureModel = 'test'
@@ -43,7 +43,7 @@ class ItemCard extends React.Component{
         return (
             
             <TouchableOpacity style={styles.container}
-            onPress={()=>this.test()}>
+            onPress={()=>this.onEnter()}>
                 <View style={{flex : 0.2 , flexDirection :"row" , margin : 5 }}>
                     <View>
                         <Image

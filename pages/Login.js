@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,Alert } from 'react-native';
+import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,Alert,KeyboardAvoidingView } from 'react-native';
 import axios from 'axios'
 import { DOMAIN } from '../constant/environment';
 import {connect} from 'react-redux'
@@ -9,7 +9,7 @@ export default connect(null , {login })(class LoginPage extends React.Component 
     super(props)
     this.state = {
         loading: false,
-        email : "" , password : "",
+        email : "God" , password : "god",
     }
 }
 async onSubmit(){
@@ -41,6 +41,7 @@ onChangeText(text, field) {
   render() {
    
     return (
+     <KeyboardAvoidingView>
       <ImageBackground style= {{height:'100%',width:'100%'}} source={require('../assets/BG.png')}>
         <View>
           <Image style= {{height:'72%',width:'72%',marginLeft:'auto',marginRight:'auto'}} source={require('../assets/logo4.png')}></Image>
@@ -81,7 +82,7 @@ onChangeText(text, field) {
                 />
                 </View>
       </ImageBackground>
-      
+      </KeyboardAvoidingView>
     );
   }
 })

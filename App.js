@@ -17,8 +17,8 @@ export default class App extends React.Component {
       <Provider store={store}>
       <NativeRouter>
         <Switch> 
-        <Route exact path="/detail" component={(Page.DetailPage)} />
-        <Route exact path="/profile" component={(LayoutComponent(Page.ProfilePage))} />        
+        <Route exact path="/detail/:item" component={(Page.DetailPage)} />
+        <Route exact path="/profile" component={AuthComponent(LayoutComponent(Page.ProfilePage))} />        
           <Route exact path="/" component={GuestComponent((Page.LoginPage))} />
           <Route exact path="/signup" component={GuestComponent(Page.SignUpPage)} /> 
           <Route exact path="/ItemPage" component={AuthComponent(LayoutComponent(Page.ItemPage))} />

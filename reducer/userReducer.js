@@ -7,7 +7,9 @@ export default function reducer(state=initialState , action){
         return {
             token : action.token
         }
-        
+        case "LOGOUT_SCCESS":
+        console.log("test")
+        return initialState
         default :
         return state
     }

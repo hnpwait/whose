@@ -5,3 +5,10 @@ export function login(token){
         token :token
     })
 }
+
+export function logout(){
+  
+    return(dispatch) => dispatch({
+        type : "LOGOUT_SCCESS"
+    })
+}

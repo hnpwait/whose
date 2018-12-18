@@ -4,13 +4,7 @@ import {withRouter} from 'react-router-native'
 import Icon from 'react-native-vector-icons/Feather';
 export default function LayoutComponent(WrappedComponent){
     return withRouter(class MyLayoutComponent extends React.Component{
-        constructor(){
-            super()
-            this.state ={
-                currentPage : 0,
-                // text:''
-            }
-        }
+   
         // onSearch(text){
         //         const newTitle = title.filter(function(item){
         //         const itemTitle = item.title.toUpperCase()
@@ -22,23 +16,29 @@ export default function LayoutComponent(WrappedComponent){
         //         text:text
         //     })
         // }
-        onPageChange(item){
-            this.setState({currentPage : item})
-            if(item == 0){
+        async onPageChange(item){
+         
+            if(this.props.history.location.pathname == "/profile"){
+              
                 this.props.history.push('/ItemPage')
+               
+               
             }
-            else if(item == 1){
+            else if(this.props.history.location.pathname == "/ItemPage"){
+               
+                
+              
                 this.props.history.push('/profile')
             }
             
            
         }
         render(){
-            //{console.warn(this.state.currentPage)}
+            console.log(this.props.history)
             const {width , height} = Dimensions.get('window')
             return (
                 <View style={styles.container}>
-                {this.state.currentPage == 0 ? 
+                {this.props.history.location.pathname != "/profile" ? 
                     <View style={styles.header}>
                     <View  style={styles.ContainerSearchBox} >
                         <TextInput
@@ -69,12 +69,12 @@ export default function LayoutComponent(WrappedComponent){
                     <View style={styles.footer}>
                         <View style={styles.containerIconBottom}>
                             <TouchableOpacity onPress={()=>this.onPageChange(0)}>
-                                <Icon name="home"color={this.state.currentPage == 0 ? "white" : "black"}  size={60}/>
+                                <Icon name="home"color={this.props.history.location.pathname == "/ItemPage" ? "white" : "black"}  size={60}/>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.containerIconBottom}>
                             <TouchableOpacity onPress={()=>this.onPageChange(1)}>
-                            <Icon name="user" color={this.state.currentPage == 1 ? "white" : "black"} size={60}/>
+                                <Icon name="user" color={this.props.history.location.pathname == "/profile"  ? "white" : "black"} size={60}/>
                             </TouchableOpacity>
                             
                         </View>

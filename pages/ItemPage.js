@@ -47,15 +47,40 @@ class ItemPage extends React.Component {
         }
 
     }
-test1 = () =>{
-    this.setState({filterType : 1})
-    this.componentDidMount();
-}
+    onPress(item,itemValue){
+        console.log('Hi')
+        console.log(this.state.filterType,this.state.PickerValue)
+        if(item == 0 ){
+            console.log('2')
+            this.setState({PickerValue: itemValue})
+            Axios.get(DOMAIN + '/post/found'+itemValue)
+                .then(result=>{
+                    const data = result.data
+                    const eventList = data.event
+                    this.setState({eventList: eventList , filterType : 0})
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err.response)
+                })
 
-test2 = () =>{
-    this.setState({filterType : 0})
-    this.componentDidMount();
-}
+        }
+        else if(item == 1 ){
+            console.log('1')
+            this.setState({PickerValue: itemValue})
+            Axios.get(DOMAIN + '/post/find'+itemValue)
+                .then(result=>{
+                    const data = result.data
+                    const eventList = data.event
+                    this.setState({eventList: eventList , filterType : 1})
+                    console.log(result)
+                })
+                .catch(err=>{
+                    console.log(err.response)
+                })
+
+        }
+    }
     // _pressImage = async () => {
     //     let result = await ImagePicker.launchImageLibraryAsync({
     //         mediaTypes : ImagePicker.MediaTypeOptions.Images
@@ -78,7 +103,7 @@ test2 = () =>{
                 fname={data.author.fName}
                 datePost={data.datePost}
                 tag={data.tag}
-
+                onEnter={()=> this.props.history.push("/detail/"+data.postId)}
             />
         )
         :
@@ -100,7 +125,7 @@ test2 = () =>{
                     <View style={{justifyContent : "space-around" , flexDirection : "row" , alignItems :"center"}}>
                       <TouchableNativeFeedback
                       
-                       onPress={()=>this.test2()}
+                       onPress={()=>this.onPress(0,this.state.PickerValue)}
                       >
                       <View style={this.state.filterType == 0? {
                         
@@ -136,7 +161,7 @@ test2 = () =>{
                       </TouchableNativeFeedback>
                       <TouchableNativeFeedback
                       
-                         onPress={()=>this.test1()}
+                         onPress={()=>this.onPress(1,this.state.PickerValue)}
                       >
                          <View style={this.state.filterType == 1? {
                         
@@ -190,8 +215,7 @@ test2 = () =>{
                     mode="dropdown"
                      style={{ height: 40, }}
                      selectedValue={this.state.PickerValue}
-                    onValueChange={(itemValue, itemIndex) => this.setState({PickerValue: itemValue})}
-                    onPress={()=>this.componentDidMount()}
+                    onValueChange={(itemValue, itemIndex) => this.onPress(this.state.filterType,itemValue)}
                    >
                     <Picker.Item label="ทั้งหมด" value="" />
                     <Picker.Item label="กุญแจ" value="key" />
