@@ -83,9 +83,9 @@ test2 = () =>{
         )
         :
         <View style={{display : "flex" , alignItems : "center" , padding : 20}}>  
-            <Text style={{fontSize : 15}}>You doesn't have any event</Text>
+            <Text style={{fontSize : 15}}> ไม่มีรายการที่จะแสดง </Text>
         </View>
-        console.warn(this.state.PickerValue)
+        //console.warn(this.state.PickerValue)
         return (     
             <View style={{
               

@@ -1,18 +1,28 @@
 import React from 'react'
-import {View , StyleSheet, Text , ScrollView , TextInput , TouchableOpacity , Dimensions} from 'react-native'
+import {View , StyleSheet, Text , ScrollView , TextInput , TouchableOpacity , Dimensions,Animated} from 'react-native'
 import {withRouter} from 'react-router-native'
+import ItemCard from '../component/Card/ItemCard'
 import Icon from 'react-native-vector-icons/Feather';
 export default function LayoutComponent(WrappedComponent){
     return withRouter(class MyLayoutComponent extends React.Component{
         constructor(){
             super()
             this.state ={
-                currentPage : 0
+                currentPage : 0,
+                text:''
             }
         }
-        onSearch(){
-
-        }
+        // onSearch(text){
+        //         const newTitle = title.filter(function(item){
+        //         const itemTitle = item.title.toUpperCase()
+        //         const textTitle = text.toUpperCase()
+        //         return itemTitle.indexOf(textTitle) >-1
+        //     }) 
+        //     this.setState({
+        //         titleSource: this.state.titleSource.cloneWithRows(newTitle),
+        //         text:text
+        //     })
+        // }
         onPageChange(item){
             this.setState({currentPage : item})
             if(item == 0){
@@ -25,7 +35,7 @@ export default function LayoutComponent(WrappedComponent){
            
         }
         render(){
-            {console.warn(this.state.currentPage)}
+            //{console.warn(this.state.currentPage)}
             const {width , height} = Dimensions.get('window')
             return (
                 <View style={styles.container}>
@@ -36,7 +46,8 @@ export default function LayoutComponent(WrappedComponent){
                             style={{padding : 10 , flex : 1}}
                             placeholder={"ค้นหา...."}
                             onChangeText={()=>this.onSearch()}
-                        />
+                            // value= {this.state.text}
+                          />
                         
                             <Icon style={{margin : 15}} name="search" color="black" />   
                         

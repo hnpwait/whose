@@ -24,12 +24,12 @@ class CreateItemFindPage extends React.Component{
 async onSubmit(){
     try{
       axios.post(DOMAIN + "/post" , 
-      {title : this.state.title , tag : this.state.PickerValue,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
+      {title : this.state.title , tag : this.state.PickerValue-1,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
       this.props.history.push("/ItemPage")
       
     }catch(err){
       console.log(err)
-      console.warn("Post Failed")
+      //console.warn("Post Failed")
     }
     
   }
@@ -54,9 +54,25 @@ async onSubmit(){
             this.setState({visible : other , modalVisible : !this.state.modalVisible,selectedValue :"other"})
          }
     }
-    
+    onSubmit(){
+        if (this.state.title=='' || this.state.detail==''){
+            Alert.alert('โปรดกรอกข้อมูลให้ครบถ้วน')
+        }
+        else{            
+            try{
+                Alert.alert('สร้างโพสต์สำเร็จ!')
+                axios.post(DOMAIN + "/post" , 
+                {title : this.state.title , tag : this.state.PickerValue-1,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
+                this.props.history.push("/ItemPage")
+                
+              }catch(err){
+                console.log(err)
+                //console.warn("Post Failed")
+              }
+            }
+        }
     render(){
-        console.warn(this.state.PickerValue)
+        //console.warn(this.state.PickerValue)
         const { selection } = this.state;
         return( 
             <View style={styles.container}>
@@ -113,7 +129,7 @@ async onSubmit(){
 
             </View>
             <View style={styles.detailbox2}> 
-            <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด :</Text>
+            <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด* :</Text>
             <TextInput
                     style={{height: 120,width:320,color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',

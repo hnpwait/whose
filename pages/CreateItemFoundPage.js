@@ -7,6 +7,8 @@ import wallet from '../assets/wallet.png'
 import phone from '../assets/phone.png'
 import other from '../assets/other.png'
 import {withRouter} from 'react-router-native'
+import axios from 'axios'
+import { DOMAIN } from '../constant/environment';
 class CreateItemFoundPage extends React.Component{
     
     constructor(){
@@ -19,18 +21,7 @@ class CreateItemFoundPage extends React.Component{
             post:'1'
         }
     }
-    async onSubmit(){
-        try{
-          axios.post(DOMAIN + "/post" , 
-          {title : this.state.title , tag : this.state.PickerValue,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
-          this.props.history.push("/ItemPage")
-          
-        }catch(err){
-          console.log(err)
-          console.warn("Post Failed")
-        }
-        
-      }
+
     onChangeText(text, field) {
         this.setState({ [field]: text });
       }
@@ -52,23 +43,25 @@ class CreateItemFoundPage extends React.Component{
             this.setState({visible : other , modalVisible : !this.state.modalVisible,selectedValue :"other"})
          }
     }
-    onPressButton(){
-        if (title==""||detail==''){
-            Alert.alert('โปรดใส่ข้อมูลให้ครบ')
+    onSubmit(){
+        if (this.state.title=='' || this.state.detail==''){
+            Alert.alert('โปรดกรอกข้อมูลให้ครบถ้วน')
         }
-        else if (title==""||detail==''){
+        else{            
             try{
+                Alert.alert('สร้างโพสต์สำเร็จ!')
                 axios.post(DOMAIN + "/post" , 
-                {title : this.state.title , tag : this.state.PickerValue,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
+                {title : this.state.title , tag : this.state.PickerValue-1,detail : this.state.detail,userID:'5c155c28135b380016c233f0', post : this.state.post})
                 this.props.history.push("/ItemPage")
                 
               }catch(err){
                 console.log(err)
-                console.warn("Post Failed")
+                //console.warn("Post Failed")
               }
         }
-
     }
+
+
     render(){
             
         return( 
@@ -136,7 +129,7 @@ class CreateItemFoundPage extends React.Component{
                 />         
                  <View style={{height: 65,width:110,marginLeft:215,marginBottom:-25 }}>        
                 <Button
-                 onPress={this.onPressButton}
+                 onPress={()=>this.onSubmit()}
                   title="โพสต์!"
                   color="#FF8000"
                   accessibilityLabel="โพสต์!"

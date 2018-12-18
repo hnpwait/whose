@@ -5,6 +5,7 @@ import card from '../../assets/card.png'
 import wallet from '../../assets/wallet.png'
 import phone from '../../assets/phone.png'
 import other from '../../assets/other.png'
+import user from '../../assets/user.png'
 import {withRouter} from 'react-router-native'
 class ItemCard extends React.Component{
     constructor(props){
@@ -47,11 +48,11 @@ class ItemCard extends React.Component{
                     <View>
                         <Image
                             style={{width : 40 , height : 40 , borderRadius : 20}}
-                             source={{uri : "https://pbs.twimg.com/profile_images/1002272769352978433/9S4QWSR0_400x400.jpg"}} 
+                             source={user}
                         />
                     </View>
                     <View style={{justifyContent :"center" , alignItems :"center" , marginLeft : 5,}}>
-                        <Text>{this.props.fname}</Text>
+                        <Text style = {{fontSize:20}}>{this.props.fname}</Text>
                     </View> 
                 </View>
                 <View 
@@ -62,7 +63,7 @@ class ItemCard extends React.Component{
                     source={PictureModel} />
                 </View> 
                 <View style={{flex : 0.2 , margin : 5}}>
-                    <Text>{this.props.title}</Text>
+                    <Text style = {{fontSize:20}}>{this.props.title}</Text>
                 </View>
             </TouchableOpacity>
         )

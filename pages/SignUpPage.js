@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,TouchableOpacity} from 'react-native';
+import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,TouchableOpacity,Alert} from 'react-native';
 import axios from 'axios'
 import {DOMAIN} from '../constant/environment'
 import {login} from '../action/userAction'
@@ -14,23 +14,29 @@ class SignUpPage extends React.Component  {
         }        
     }
  
-    async onSubmit(){
-      try{
-        const result = await axios.post(DOMAIN +"/user/register", {email : this.state.email , lName:this.state.lastname , fName : this.state.firstname , password :this.state.password})
-        const data = result.data
-        axios.defaults.headers.common.authorization = "Bearer " + data.token
-        this.props.login(data.token)
-          
-        console.warn(data.token)
-      }catch(err){
-        console.log(err)
-        console.warn("Register failed")
-      }
-      
-    }
     onChangeText(text, field) {
             this.setState({ [field]: text });
     }
+    async onSubmit(){
+        if (this.state.email=='' || this.state.firstname ==''||this.state.lastname==''||this.state.password==''){
+            Alert.alert('โปรดกรอกข้อมูลให้ครบถ้วน')
+        }
+        else {            
+          try{
+            Alert.alert('สร้างบัญชีสำเร็จ!')
+            const result = await axios.post(DOMAIN +"/user/register", {email : this.state.email , lName:this.state.lastname , fName : this.state.firstname , password :this.state.password})
+            const data = result.data
+            axios.defaults.headers.common.authorization = "Bearer " + data.token
+            this.props.login(data.token)
+            this.props.history.push("/login")             
+            //console.warn(data.token)
+          }catch(err){
+            Alert.alert('E-mailนี้มีผู้ใช้แล้ว')
+            console.log(err)
+            //console.warn("Register failed")
+          }
+        }
+      } 
       render() {
         return (
           
@@ -53,7 +59,6 @@ class SignUpPage extends React.Component  {
                     onChangeText={(text) => this.onChangeText(text, 'email')}
                 />
                 <TextInput
-                secureTextEntry
                 underlineColorAndroid='rgba(255,255,255,0)'
                     style={{height: 50,width:'70%',color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',

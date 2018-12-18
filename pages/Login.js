@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button } from 'react-native';
+import { View,AppRegistry, Text, StyleSheet,ImageBackground,Image,TextInput,Button,Alert } from 'react-native';
 import axios from 'axios'
 import { DOMAIN } from '../constant/environment';
 import {connect} from 'react-redux'
@@ -9,16 +9,16 @@ export default connect(null , {login })(class LoginPage extends React.Component 
     super(props)
     this.state = {
         loading: false,
-        email : "1111" , password : "1111",
+        email : "" , password : "",
     }
 }
 async onSubmit(){
-  const {email,password} = this.state; {
-  try{
-    if(email == "" || password == ""){
-      this.setState({ Error: 'Please fill email or password' });
-   }
+
+    if(this.state.email == "" || this.state.password == ""){
+      Alert.alert('โปรดกรอก Email/Password ให้ครบถ้วน')
+    }
    else{
+    try{
     console.log(this.state)
     const result = await axios.post(DOMAIN + "/user/login" , {email : this.state.email , password : this.state.password})
     const data = result.data
@@ -27,11 +27,12 @@ async onSubmit(){
     this.props.login(token)
     // this.props.history.push("/signup")
     console.log(result)
-   }
   }catch(err){
+    Alert.alert('E-mail/รหัสผ่าน ผิด!')
     console.log(err)
-    console.warn("Login Failed")
-  }
+    //console.warn("Login Failed")
+  
+}
 }
 }
 onChangeText(text, field) {
