@@ -1,7 +1,6 @@
 import React from 'react'
-import {View , StyleSheet, Text , ScrollView , TextInput , TouchableOpacity , Dimensions,Animated} from 'react-native'
+import {View , StyleSheet, Text , ScrollView , TextInput , TouchableOpacity , Dimensions} from 'react-native'
 import {withRouter} from 'react-router-native'
-import ItemCard from '../component/Card/ItemCard'
 import Icon from 'react-native-vector-icons/Feather';
 export default function LayoutComponent(WrappedComponent){
     return withRouter(class MyLayoutComponent extends React.Component{
@@ -9,7 +8,7 @@ export default function LayoutComponent(WrappedComponent){
             super()
             this.state ={
                 currentPage : 0,
-                text:''
+                // text:''
             }
         }
         // onSearch(text){

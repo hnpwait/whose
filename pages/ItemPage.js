@@ -56,16 +56,16 @@ test2 = () =>{
     this.setState({filterType : 0})
     this.componentDidMount();
 }
-    _pressImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes : ImagePicker.MediaTypeOptions.Images
-        });
-        console.log(result);
+    // _pressImage = async () => {
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //         mediaTypes : ImagePicker.MediaTypeOptions.Images
+    //     });
+    //     console.log(result);
     
-        if (!result.cancelled) {
-          this.setState({ image: result.uri });
-        }
-      }
+    //     if (!result.cancelled) {
+    //       this.setState({ image: result.uri });
+    //     }
+    //   }
       async OnCreateFind() {
         this.props.history.push("/createfind")}
     render(){
