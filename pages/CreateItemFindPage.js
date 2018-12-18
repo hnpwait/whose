@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert,KeyboardAvoidingView} from 'react-native'
+import {View,StyleSheet,Text,Image,Button,TextInput,Picker,TouchableOpacity,Alert} from 'react-native'
 import { ImagePicker } from 'expo';
 import key from '../assets/key.png'
 import card from '../assets/card.png'
@@ -130,15 +130,13 @@ async onSubmit(){
             </View>
             <View style={styles.detailbox2}> 
             <Text style={{fontSize:22,color:'black',marginTop:10,marginButtom:10}}>รายละเอียด* :</Text>
-            <KeyboardAvoidingView  behavior="padding" >
             <TextInput
                     style={{height: 120,width:320,color:'gray',
                     backgroundColor:'white',borderRadius : 30,marginLeft:'auto',marginRight:'auto',
                     marginBottom:'auto',borderWidth : 1,borderColor :"#FF8000",padding:10 
                     }}
                     onChangeText={(text) => this.onChangeText(text, 'detail')}
-                />   
-                </KeyboardAvoidingView>      
+                />     
                  <View style={{height: 65,width:110,marginLeft:215,marginBottom:-25 }}>
                 <Button
                   title="โพสต์!"

@@ -21,14 +21,14 @@ class SignUpPage extends React.Component  {
         if (this.state.email=='' || this.state.firstname ==''||this.state.lastname==''||this.state.password==''){
             Alert.alert('โปรดกรอกข้อมูลให้ครบถ้วน')
         }
-        else {            
+        else {  
           try{
-            Alert.alert('สร้างบัญชีสำเร็จ!')
             const result = await axios.post(DOMAIN +"/user/register", {email : this.state.email , lName:this.state.lastname , fName : this.state.firstname , password :this.state.password})
             const data = result.data
             axios.defaults.headers.common.authorization = "Bearer " + data.token
             this.props.login(data.token)
-            this.props.history.push("/login")             
+            this.props.history.push("/ItemPage")
+            Alert.alert('สร้างบัญชีสำเร็จ!')             
             //console.warn(data.token)
           }catch(err){
             Alert.alert('E-mailนี้มีผู้ใช้แล้ว')
@@ -86,9 +86,9 @@ class SignUpPage extends React.Component  {
                 />
                 <View style={{height: 60,width:100,marginLeft:200,marginTop:20}}>
                 <Button
-                  title="Sign Up!"
+                  title="Register!"
                   color="#FF8000"
-                  accessibilityLabel="Sign Up"
+                  accessibilityLabel="Register!"
                   onPress={()=>this.onSubmit()}
 
                 />

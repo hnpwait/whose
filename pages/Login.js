@@ -75,10 +75,10 @@ onChangeText(text, field) {
                 </View>
                 <View style={{height: 60,width:100,marginLeft:200,position: 'absolute',top: 415 }}>
                 <Button
-                  title="Sign Up?"
+                  title="Register?"
                   color="#8B5E30"
                   onPress={()=>this.props.history.push("/signup")}
-                  accessibilityLabel="Sign Up?"
+                  accessibilityLabel="Register?"
                 />
                 </View>
       </ImageBackground>
